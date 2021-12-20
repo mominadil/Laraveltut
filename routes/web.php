@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'home.index')->name('home.index'); 
 Route::view('/contact', 'home.contact')->name('home.contact');
 
-Route::get('/posts/{id}',function($id){
+// Route::get('/posts/{id}',function($id){
     $posts = [
     1 => [
         'title' => 'Intro to Laravel',
@@ -39,6 +39,17 @@ Route::get('/posts/{id}',function($id){
         'is_new'=>false
     ]
 ];
+
+
+Route::get('/posts', function() use($posts){
+    // compact($posts)
+    return view('post.index',['posts' => $posts]);
+});
+
+
+Route::get('/posts/{id}',function($id) use($posts){
+
+
 
     abort_if(!isset($posts[$id]),404);
     return view('post.show', ['post' => $posts[$id]]);
