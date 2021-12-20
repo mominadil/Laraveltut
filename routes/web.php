@@ -37,6 +37,11 @@ Route::view('/contact', 'home.contact')->name('home.contact');
         'title' => 'Intro to PHP',
         'content' => 'This is a short intro to PHP',
         'is_new'=>false
+    ],
+    3 => [
+        'title' => 'Intro to Golang',
+        'content' => 'This is a short intro to Golang',
+        'is_new'=>false
     ]
 ];
 
