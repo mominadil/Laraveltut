@@ -3,11 +3,11 @@
 @section('title','Blog post')
     
 @section('content')
- 
-@foreach ($posts as $key => $post)
-<div>{{$key}}.{{$post['title']}}</div>
-@endforeach
-
-
-
+    
+    @forelse ($posts as $key => $post)
+    @include('post.partials.post')
+    @empty
+        No post found!
+    @endempty
+    
 @endsection
