@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PostsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,21 +54,22 @@ Route::get('/single', AboutController::class);
     ]
 ];
 
+Route::resource('$posts', PostsController::class)->only(['index','show']);
 
-Route::get('/posts', function() use($posts){
-    // compact($posts)
-    return view('post.index',['posts' => $posts]);
-});
-
-
-
-Route::get('/posts/{id}',function($id) use($posts){
+// Route::get('/posts', function() use($posts){
+//     // compact($posts)
+//     return view('post.index',['posts' => $posts]);
+// });
 
 
 
-    abort_if(!isset($posts[$id]),404);
-    return view('post.show', ['post' => $posts[$id]]);
-});
+// Route::get('/posts/{id}',function($id) use($posts){
+
+
+
+//     abort_if(!isset($posts[$id]),404);
+//     return view('post.show', ['post' => $posts[$id]]);
+// });
 
 
 
