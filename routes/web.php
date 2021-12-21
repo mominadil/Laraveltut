@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,8 +22,10 @@ use Illuminate\Support\Facades\Route;
 // })->name('home.contact');
 
 
-Route::view('/', 'home.index')->name('home.index'); 
-Route::view('/contact', 'home.contact')->name('home.contact');
+Route::get('/', [HomeController::class, 'home'])
+->name('home.index'); 
+Route::get('/contact',[HomeController::class, 'contact'])
+->name('home.contact');
 
 // Route::get('/posts/{id}',function($id){
     $posts = [
@@ -75,23 +77,58 @@ Route::get('/posts/{id}',function($id) use($posts){
 //     return 'Post from ' .$daysAgo. ' days ago.';
 // })->name('post.recent.index');
 
-Route::get('/fun/responses',function() use($posts){
-  return response($posts, 201)->header('Content-Type','application/json')->cookie('MY_COOKIE','Adil Momin',3600);
+// Route::get('/fun/responses',function() use($posts){
+//   return response($posts, 201)->header('Content-Type','application/json')->cookie('MY_COOKIE','Adil Momin',3600);
 
-});
+// });
 
-Route::get('/fun/redirect',function(){
+// Route::get('/fun/redirect',function(){
+//     return redirect('/contact');
+// });
+
+// Route::get('/fun/back',function(){
+//     return back();
+// });
+
+// Route::get('/fun/named-route',function(){
+//     return redirect()->route('post.show',['id'=>1]);
+// });
+
+// Route::get('/fun/json',function(){
+//     return response()->json($posts);
+// });
+
+// Route::get('/fun/download',function()use($posts){
+//     return response()->download(public_path('/Backed-by-science.png'), 'face.png');
+// });
+Route::prefix('/fun')->name('fun.')->group(function() use($posts) {
+  Route::get('responses', function() use($posts) {
+    return response($posts, 201)
+      ->header('Content-Type', 'application/json')
+      ->cookie('MY_COOKIE', 'Piotr Jura', 3600);
+  })->name('responses');
+
+  Route::get('redirect', function() {
     return redirect('/contact');
-});
+  })->name('redirect');
 
-Route::get('/fun/back',function(){
+  Route::get('back', function() {
     return back();
-});
+  })->name('back');
 
-Route::get('/fun/named-route',function(){
-    return redirect()->route('post.show',['id'=>1]);
-});
+  Route::get('named-route', function() {
+    return redirect()->route('posts.show', ['id' => 1]);
+  })->name('named-route');
 
-Route::get('/fun/away',function(){
+  Route::get('away', function() {
     return redirect()->away('https://google.com');
+  })->name('away');
+
+  Route::get('json', function() use($posts) {
+    return response()->json($posts);
+  })->name('json');
+
+  Route::get('download', function() use($posts) {
+    return response()->download(public_path('/daniel.jpg'), 'face.jpg');
+  })->name('download');
 });
