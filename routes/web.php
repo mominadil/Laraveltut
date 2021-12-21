@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +27,11 @@ Route::get('/', [HomeController::class, 'home'])
 ->name('home.index'); 
 Route::get('/contact',[HomeController::class, 'contact'])
 ->name('home.contact');
+
+Route::get('/single', AboutController::class);
+
+
+
 
 // Route::get('/posts/{id}',function($id){
     $posts = [
@@ -52,6 +58,7 @@ Route::get('/posts', function() use($posts){
     // compact($posts)
     return view('post.index',['posts' => $posts]);
 });
+
 
 
 Route::get('/posts/{id}',function($id) use($posts){
